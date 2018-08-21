@@ -31,8 +31,8 @@ if not Path(local_db).exists():
 #build virus signature database
 infected_df = build_virus_db(token, virus_db, local_db, seconds)
 #TODO for testing only, remove
-print("Infected Files: ")
-print(infected_df)
+#print("Infected Files: ")
+#print(infected_df)
 
 #create list of paths to be mounted
 paths = []
@@ -43,20 +43,17 @@ for index, row in infected_df.iterrows():
 	paths.append((path, comp)) 
 
 #TODO for testing only, remove
-print(paths)
-paths = []
+#print(paths)
+#paths = []
 
 #TODO For testing only, remove
-#paths = ['//ITS-172099/c$/users/BradshJ1/desktop', '//ITS-172099/c$/users/BradshJ1/pictures/test',]
-paths = [("//ITS-172099/c$/users/BradshJ1/desktop", "ITS-172099"), ('//ITS-172099/c$/users/BradshJ1/pictures/test', "ITS-172099")]
+#paths = [("//ITS-172099/c$/users/BradshJ1/desktop", "ITS-172099"), ('//ITS-172099/c$/users/BradshJ1/pictures/test', "ITS-172099")]
 
 #mount paths and run scan
 for path in paths:
 	try:
 		#make sub directory for each computer 
 		sub_quarantine = quarantine + '/' + path[1]
-		#TODO for testing only
-		print(sub_quarantine)
 		comp = InfectedComputer(virus_db, sub_quarantine, log_file, local_db, path[0], credentials)
 		comp.mount()
 	except Exception as e:
@@ -71,8 +68,8 @@ for path in paths:
 		comp.unmount()
 		continue
 	#TODO for testing only, remove
-	print("Virus List: ")
-	print(comp.virus_list)
+	#print("Virus List: ")
+	#print(comp.virus_list)
 	comp.rename_quarantine()
 	comp.leave_txt()
 	comp.write_to_quarantine_db()

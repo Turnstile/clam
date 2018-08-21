@@ -18,8 +18,6 @@ class Computer:
 	def mount(self):		
 		"""Mount a network drive using the comp_path, mount_point, and username given in the constructor"""
 		syslog.syslog(syslog.LOG_NOTICE, "Mounting " + self.comp_path + " to " + self.mount_point)
-		#TODO for testing only, remove
-		#cmd = "sudo mount --bind " + self.comp_path + " " + self.mount_point
 		cmd = "sudo mount -t cifs " + '"' + self.comp_path + '"' + " " + self.mount_point + " -v -o credentials=" + self.credentials
 		subprocess.run(shlex.split(cmd))
 	

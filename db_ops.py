@@ -71,7 +71,7 @@ def build_virus_db(token, virus_db, local_db, seconds):
 		for index, row in df.iterrows():
 			f.write(row['fileCatalogId_sha256'] + ':*:' + row['fileName'] +  ':73\n')
 	#TODO for testing purposes only, remove
-		f.write('55f8718109829bf506b09d8af615b9f107a266e19f7a311039d1035f180b22d4:*:foobar.exe:73\n')
+	#	f.write('55f8718109829bf506b09d8af615b9f107a266e19f7a311039d1035f180b22d4:*:foobar.exe:73\n')
 
 	f.close() 
 	syslog.syslog(syslog.LOG_NOTICE, 'Virus database ' + str(Path(virus_db).resolve()) + ' created')
@@ -224,8 +224,6 @@ def approve_queue(token, local_db):
 			syslog.syslog(syslog.LOG_NOTICE, 'No matching files found')
 		#otherwise, locally approve all matching files
 		else:
-			#TODO for testing only
-			print(r)
 			for finst in r:
 				file_id = finst['id']
 				finst['localState'] = 2
