@@ -1,0 +1,8 @@
+*.ini
+*.cred
+*.sqlite3
+*.hdb
+*.log
+test_files/
+__pycache__/
+back/
