@@ -214,7 +214,7 @@ def approve_queue(token, local_db):
 	
 	for result in approved_files:
 		syslog.syslog(syslog.LOG_NOTICE, 'Requesting matching file instance for ' + result[0] + ' on computer ' + result[1])
-		query = {'expand': ['fileCatalogId', 'computerId'], 'q': ['fileCatalogId_sha256i:' + result[0], 'computerId_name:*' + result[1]]}
+		query = {'expand': ['fileCatalogId', 'computerId'], 'q': ['fileCatalogId_sha256:' + result[0], 'computerId_name:*' + result[1]]}
 	
 		#send request for file instance with matching hash value on computer
 		r = requests.get(url, params=query, headers=authJson, verify=b9StrongCert).json()
@@ -224,6 +224,8 @@ def approve_queue(token, local_db):
 			syslog.syslog(syslog.LOG_NOTICE, 'No matching files found')
 		#otherwise, locally approve all matching files
 		else:
+			#TODO for testing only
+			print(r)
 			for finst in r:
 				file_id = finst['id']
 				finst['localState'] = 2
